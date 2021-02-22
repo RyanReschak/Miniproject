@@ -15,15 +15,24 @@ import pandas as pd
 
 name = "test.jpg"
 camera = PiCamera()
+camera.resolution = (1920, 1080)
+
+def balanceExposure():
+    # Set ISO to the desired value
+    camera.iso = 400
+    # Wait for the automatic gain control to settle
+    sleep(2)
+    # Now fix the values
+    camera.shutter_speed = camera.exposure_speed
+    camera.exposure_mode = 'off'
+    g = camera.awb_gains
+    camera.awb_mode = 'off'
+    camera.awb_gains = g
 
 def takePic():
-    # allow the camera to warmup
-    time.sleep(0.1)
+    
     # grab an image from the camera
-
-#    print("Capturing Image...")
     try:
-        camera.resolution = (1920, 1080)
         camera.capture(name)
     except:
        print("Failed to capture")
@@ -107,14 +116,16 @@ def locator(corners):
 
 def markerDetection():    
     
+    balanceExposure()
     takePic()
     marker = arucoDetection()
     #marker = manyPics() #Use this for continual pics
     print(marker)
     location = locator(marker)
-    print(location)
     #Uncomment for testing if need be
     #image = cv2.imread(name,0)
     #cv2.imshow("Image", image)
     #cv2.waitKey(0)
     return location
+
+markerDetection()
