@@ -98,34 +98,32 @@ def locator(corners):
 
         #Run 4 if statements comparing markerCenter and camCenter and return based on that#
         if (markerCenter[0] < camCenter[0]) and (markerCenter[1] < camCenter[1]):
-            print(markerCenter)
-            print(camCenter)
+#            print(markerCenter)
+#            print(camCenter)
             return 1 #NorthWest
         elif (markerCenter[0] > camCenter[0]) and (markerCenter[1] < camCenter[1]):
-            print(markerCenter)
-            print(camCenter)
+#            print(markerCenter)
+#            print(camCenter)
             return 2 #NorthEast
         elif (markerCenter[0] > camCenter[0]) and (markerCenter[1] > camCenter[1]):
-            print(markerCenter)
-            print(camCenter)
+#            print(markerCenter)
+#            print(camCenter)
             return 3 #SouthEast
         elif (markerCenter[0] < camCenter[0]) and (markerCenter[1] > camCenter[1]):
-            print(markerCenter)
-            print(camCenter)
+#            print(markerCenter)
+#            print(camCenter)
             return 4 #SouthWest
+
 
 def markerDetection():    
     
-    balanceExposure()
     takePic()
     marker = arucoDetection()
     #marker = manyPics() #Use this for continual pics
-    print(marker)
+    #print(marker)
     location = locator(marker)
     #Uncomment for testing if need be
     #image = cv2.imread(name,0)
     #cv2.imshow("Image", image)
     #cv2.waitKey(0)
     return location
-
-markerDetection()
